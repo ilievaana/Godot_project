@@ -1,0 +1,168 @@
+[gd_scene load_steps=16 format=3 uid="uid://ttfho1q5qh6o"]
+
+[ext_resource type="Script" path="res://main_scene.gd" id="1_20lxg"]
+[ext_resource type="Script" path="res://character_body_3d.gd" id="1_ipemu"]
+[ext_resource type="PackedScene" uid="uid://bqattd0a37ic2" path="res://treasure.tscn" id="2_yvb4d"]
+[ext_resource type="PackedScene" uid="uid://b7xyx2h2bpo70" path="res://Strut Walking (1).glb" id="3_g5el8"]
+[ext_resource type="ArrayMesh" uid="uid://kynw5y3wq8m4" path="res://Tree.obj" id="5_3m8ey"]
+[ext_resource type="ArrayMesh" uid="uid://ds0i8qu22csk0" path="res://ConcreteBench-L3.obj" id="6_eb0jk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tybcg"]
+albedo_color = Color(0.180392, 0.72549, 0.176471, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shb0i"]
+material = SubResource("StandardMaterial3D_tybcg")
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4qp3v"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l50so"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0lfcb"]
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mdw57"]
+albedo_color = Color(0.600295, 0.33681, 0.210827, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egrsp"]
+albedo_color = Color(0.211765, 1, 0.345098, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pmy06"]
+albedo_color = Color(0.590496, 0.242102, 0.0113945, 1)
+
+[sub_resource type="Environment" id="Environment_uvxtg"]
+background_mode = 1
+background_color = Color(0.427657, 0.607436, 0.99495, 1)
+ambient_light_color = Color(0.509306, 0.667922, 1, 1)
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_20lxg")
+treasure_scene = ExtResource("2_yvb4d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D-grass" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0566213, -0.159801, 0.0939436)
+mesh = SubResource("BoxMesh_shb0i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_4qp3v")
+
+[node name="MeshInstance3D-pateka" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(0.7, 0, 0, 0, 1, 0, 0, 0, 4.5, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_l50so")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_ipemu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_0lfcb")
+
+[node name="Strut Walking (1)" parent="CharacterBody3D" instance=ExtResource("3_g5el8")]
+transform = Transform3D(0.007, 0, 0, 0, 0.007, 0, 0, 0, 0.007, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 2, 5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 170.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 24
+text = "Скор: 0"
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 150.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 24
+text = "Време: 30s"
+
+[node name="GameOverScreen" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverText" type="Label" parent="CanvasLayer/Control/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 480.0
+offset_top = 3.0
+offset_right = 545.0
+offset_bottom = 26.0
+grow_horizontal = 2
+scale = Vector2(1.3, 1.3)
+text = "Победа!"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="CanvasLayer/Control/GameOverScreen"]
+layout_mode = 0
+offset_left = 470.0
+offset_top = 350.0
+offset_right = 670.0
+offset_bottom = 400.0
+text = "Обиди се повторно!"
+
+[node name="Tree1" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree1"]
+transform = Transform3D(0.35, 0, 0, 0, 0.4, 0, 0, 0, 0.35, -1, 0, 3)
+mesh = ExtResource("5_3m8ey")
+surface_material_override/0 = SubResource("StandardMaterial3D_mdw57")
+surface_material_override/1 = SubResource("StandardMaterial3D_egrsp")
+
+[node name="Tree2" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree2"]
+transform = Transform3D(0.35, 0, 0, 0, 0.4, 0, 0, 0, 0.35, 1, 0, 1)
+mesh = ExtResource("5_3m8ey")
+surface_material_override/0 = SubResource("StandardMaterial3D_mdw57")
+surface_material_override/1 = SubResource("StandardMaterial3D_egrsp")
+
+[node name="Bench1" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bench1"]
+transform = Transform3D(-3.49691e-10, 0.008, 3.49691e-10, 0, -3.49691e-10, 0.008, 0.008, 3.49691e-10, 1.52855e-17, 1, 0, 2.8)
+mesh = ExtResource("6_eb0jk")
+surface_material_override/0 = SubResource("StandardMaterial3D_pmy06")
+
+[node name="Bench2" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bench2"]
+transform = Transform3D(1.19249e-10, -0.01, -4.37114e-10, 0, -4.37114e-10, 0.01, -0.01, -1.19249e-10, -5.21253e-18, -1, 0, 0.008)
+mesh = ExtResource("6_eb0jk")
+surface_material_override/0 = SubResource("StandardMaterial3D_pmy06")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uvxtg")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

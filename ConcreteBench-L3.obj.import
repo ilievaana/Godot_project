@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ds0i8qu22csk0"
+path="res://.godot/imported/ConcreteBench-L3.obj-33bf4a6ca920cbe2259f45b32c8f364a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ConcreteBench-L3.obj-33bf4a6ca920cbe2259f45b32c8f364a.mesh"]
+
+source_file="res://ConcreteBench-L3.obj"
+dest_files=["res://.godot/imported/ConcreteBench-L3.obj-33bf4a6ca920cbe2259f45b32c8f364a.mesh", "res://.godot/imported/ConcreteBench-L3.obj-33bf4a6ca920cbe2259f45b32c8f364a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

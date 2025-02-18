@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqattd0a37ic2"]
+
+[ext_resource type="Script" path="res://treasure.gd" id="1_ls7yd"]
+[ext_resource type="Texture2D" uid="uid://c8gw58rbnr2hr" path="res://treasure_chest.png" id="2_k88jv"]
+[ext_resource type="Texture2D" uid="uid://dkpec0i0wx6ve" path="res://coins.png" id="3_ilg7d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wqsgy"]
+radius = 0.3
+
+[node name="Treasure" type="Node3D"]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 1, 0)
+script = ExtResource("1_ls7yd")
+textures = Array[Texture2D]([ExtResource("2_k88jv"), ExtResource("3_ilg7d")])
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("SphereShape3D_wqsgy")
+
+[node name="Sprite3D" type="Sprite3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+offset = Vector2(0, 3)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
